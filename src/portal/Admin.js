@@ -1,8 +1,8 @@
-import React from 'react'
 import { Button } from 'antd'
+import React from 'react'
 import { revokeAll } from '../helpers'
 
-const Portal = ({ history }) => {
+const Admin = ({ history }) => {
   const revoke = () => {
     revokeAll(() => {
       history.push('/login')
@@ -18,10 +18,10 @@ const Portal = ({ history }) => {
         alignItems: 'center',
       }}
     >
-      <h1>Protected Route</h1>
+      <h1>Admin Protected Route</h1>
       <Button onClick={revoke}>Log Out</Button>
     </div>
   )
 }
 
-export default Portal
+export default Admin

@@ -8,7 +8,7 @@ import axios from '../api/auth.api'
 import { authenticate, isAuthenticated } from '../helpers'
 import './Login.css'
 
-const Login = () => {
+const Login = ({ history }) => {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const onFinish = async ({ email, password, remember }) => {
@@ -20,7 +20,9 @@ const Login = () => {
         remember,
       })
       authenticate(result, () => {
-        console.log('Tried Logging Recently')
+        isAuthenticated().role === 'superuser'
+          ? history.push('/admin')
+          : history.push('/portal')
       })
     } catch (error) {
       notification.error({
@@ -35,7 +37,6 @@ const Login = () => {
 
   return (
     <>
-      {isAuthenticated() ? <Redirect to="/portal" /> : null}
       <Form
         name="normal_login"
         form={form}

@@ -1,17 +1,24 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import AuthRoute from './auth/AuthRoute'
 import Verification from './auth/Verification'
-import HomeRoute from './helpers/HomeRoute'
+import Login from './auth/Login'
+import Register from './auth/Register'
+import HomeRoute from './routes/HomeRoute'
 import Portal from './portal/Portal'
+import Admin from './portal/Admin'
+import PrivateRoute from './routes/PrivateRoute'
+import GatewayRoute from './routes/GatewayRoute'
+import AdminRoute from './routes/AdminRoute'
 
 const Routes = () => (
   <Router>
     <Switch>
       <Route path="/" exact component={HomeRoute} />
-      <Route path="/portal" component={Portal} />
+      <PrivateRoute path="/portal" component={Portal} />
+      <AdminRoute path="/admin" component={Admin} />
       <Route path="/users/activate/:token" component={Verification} />
-      <AuthRoute />
+      <GatewayRoute path="/login" component={Login} />
+      <GatewayRoute path="/register" component={Register} />
     </Switch>
   </Router>
 )
