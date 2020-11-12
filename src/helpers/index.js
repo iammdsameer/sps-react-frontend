@@ -39,7 +39,6 @@ const authenticate = (res, next) => {
 const isAuthenticated = () => {
   if (window) {
     const cookiePresent = getCookie('token')
-    console.log(cookiePresent)
     if (cookiePresent) {
       if (localStorage.getItem('user')) {
         return JSON.parse(localStorage.getItem('user'))
