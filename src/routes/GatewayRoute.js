@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { isAuthenticated } from '../helpers'
-import Gateway from '../auth/Gateway'
+import Gateway from '../layout/Gateway'
 
 const GatewayRoute = ({ component: Component, ...rest }) => (
   <Route
