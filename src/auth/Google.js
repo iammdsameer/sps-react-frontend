@@ -2,6 +2,8 @@ import React from 'react'
 import axios from '../api/auth.api'
 import GoogleLogin from 'react-google-login'
 
+import './Google.css'
+
 const Google = ({ takeAction }) => {
   const responseGoogle = async (response) => {
     // console.log(response.tokenId)
@@ -17,8 +19,9 @@ const Google = ({ takeAction }) => {
   }
   return (
     <GoogleLogin
+      className="google-auth-btn"
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-      buttonText="Login with Google"
+      buttonText="Continue with Google"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
       cookiePolicy={'single_host_origin'}

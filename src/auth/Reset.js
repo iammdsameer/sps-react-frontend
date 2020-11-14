@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, message } from 'antd'
-import { MailOutlined, LockOutlined } from '@ant-design/icons'
+import { Form, Input, Button, message, Card } from 'antd'
 import { Link } from 'react-router-dom'
 
 import axios from '../api/auth.api'
-import { authenticate, isAuthenticated } from '../helpers'
 import './Reset.css'
 
 const Reset = ({ match }) => {
@@ -38,73 +36,79 @@ const Reset = ({ match }) => {
     setLoading(false)
   }
   return (
-    <Form
-      name="normal_login"
-      layout="vertical"
-      form={form}
-      className="login-form"
-      initialValues={{
-        remember: true,
-      }}
-      onFinish={onFinish}
+    <Card
+      title="Reset Your Password"
+      bordered={false}
+      style={{ width: 300, margin: '0 auto' }}
     >
-      <Form.Item
-        name="password"
-        label="New Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter your password!',
-          },
-          {
-            min: 6,
-            max: 28,
-            message: 'Password should contain values between 6-28 characters',
-          },
-        ]}
-        hasFeedback
+      <Form
+        name="normal_login"
+        layout="vertical"
+        form={form}
+        className="login-form"
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
       >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve()
-              }
-              return Promise.reject(
-                'Sorry, the passwords that you entered do not match!'
-              )
+        <Form.Item
+          name="password"
+          label="New Password"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter your password!',
             },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-      <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="login-form-button"
-          loading={loading}
+            {
+              min: 6,
+              max: 28,
+              message: 'Password should contain values between 6-28 characters',
+            },
+          ]}
+          hasFeedback
         >
-          Change Password
-        </Button>
-        <Button className="login-form-button">
-          <Link to="/">Return Home</Link>
-        </Button>
-      </Form.Item>
-    </Form>
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          name="confirm"
+          label="Confirm Password"
+          dependencies={['password']}
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: 'Please confirm your password!',
+            },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve()
+                }
+                return Promise.reject(
+                  'Sorry, the passwords that you entered do not match!'
+                )
+              },
+            }),
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+            loading={loading}
+          >
+            Change Password
+          </Button>
+          <Button className="login-form-button">
+            <Link to="/">Return Home</Link>
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
   )
 }
 
