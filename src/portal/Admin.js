@@ -10,12 +10,14 @@ const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30 // Moment is a
 const Admin = () => {
   const [totalUser, setTotalUser] = useState('-')
   const [totalBlockedUser, setTotalBlockedUser] = useState('-')
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     async function getall() {
       const res = await axios.get('users/admin/total-users-count')
       const res1 = await axios.get('users/admin/blocked-users-count')
       setTotalUser(res.data.count)
       setTotalBlockedUser(res1.data.count)
+      setLoading(false)
     }
     getall()
   }, [])
@@ -31,6 +33,7 @@ const Admin = () => {
       <Space>
         <Card style={{ width: '140px' }} hoverable>
           <Statistic
+            loading={loading}
             title="Total Users"
             value={totalUser}
             valueStyle={{ color: '#3f8600' }}
@@ -39,6 +42,7 @@ const Admin = () => {
         </Card>
         <Card style={{ width: '140px' }} hoverable>
           <Statistic
+            loading={loading}
             title="Blocked Users"
             value={totalBlockedUser}
             valueStyle={{ color: 'red' }}

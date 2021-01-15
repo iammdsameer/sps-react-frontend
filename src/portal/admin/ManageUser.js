@@ -19,11 +19,14 @@ const ManageUser = () => {
   const [form] = Form.useForm()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [loading1, setLoading1] = useState(true)
   const getData = async () => {
     const result = await axios.post('users/admin/users-list')
     setData(result.data)
+    setLoading1(false)
   }
   useEffect(() => {
+    setLoading1(true)
     getData()
   }, [])
   function onChange(pagination, filters, sorter, extra) {
@@ -137,7 +140,12 @@ const ManageUser = () => {
   return (
     <div>
       <h1 style={{ marginBottom: '30px' }}>Manage User</h1>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table
+        loading={loading1}
+        columns={columns}
+        dataSource={data}
+        onChange={onChange}
+      />
       <Drawer
         title="Edit User Details"
         placement="right"
