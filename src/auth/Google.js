@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from '../api/auth.api'
 import GoogleLogin from 'react-google-login'
+import { notification } from 'antd'
 
 import './Google.css'
 
@@ -14,6 +15,11 @@ const Google = ({ takeAction }) => {
       takeAction(result)
       // console.log('google success', result)
     } catch (error) {
+      notification.error({
+        message: 'Whops!',
+        description: error.response.data.error,
+        placement: 'bottomRight',
+      })
       console.log(error.response.data)
     }
   }
