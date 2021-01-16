@@ -5,7 +5,7 @@ import BulkUser from './BulkUser'
 
 const { Option } = Select
 
-const AddUser = () => {
+const AddUser = ({ history }) => {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const onFinish = async (values) => {
@@ -114,7 +114,7 @@ const AddUser = () => {
       </Col>
       <Col span={8}>
         <h1 style={{ marginBottom: '30px' }}>Bulk Upload a CSV</h1>
-        <BulkUser />
+        <BulkUser history={history} />
       </Col>
     </Row>
   )

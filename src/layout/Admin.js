@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
+import { useLocation, Link } from 'react-router-dom'
 import { Layout, Menu, Avatar, Modal, Form, Input, Button, message } from 'antd'
 import Breadcrumb from './Breadcrumb'
 import { revokeAll } from '../helpers'
 import axios from '../api/auth.api'
 import './Admin.css'
 import {
-  UserOutlined,
+  TeamOutlined,
   AppstoreOutlined,
+  ExclamationCircleOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
 
 const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
 
 const Admin = ({ children }) => {
+  const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isModalVisible2, setIsModalVisible2] = useState(false)
   const [curr, setCurr] = useState({})
@@ -28,7 +30,7 @@ const Admin = ({ children }) => {
   }
   const revoke = () => {
     revokeAll(() => {
-      window.location.href = '/login'
+      children.props.history.push('/login')
     })
   }
 
@@ -58,13 +60,18 @@ const Admin = ({ children }) => {
     setIsModalVisible(false)
   }
 
-  const passwordChanger = async ({ password, id }) => {
-    await axios.put('users/change-password', {
-      data: { password, id },
-    })
+  const passwordChanger = async ({ current, nayapassword, id }) => {
+    console.log(nayapassword, current, id)
+    try {
+      await axios.put('users/change-password', {
+        data: { current, id, nayapassword },
+      })
+      setIsModalVisible2(false)
+      message.success('Your password was changed successfully.')
+    } catch (error) {
+      message.error(error.response.data.error)
+    }
     form2.resetFields()
-    setIsModalVisible2(false)
-    message.success('Your password was changed successfully.')
   }
 
   return (
@@ -88,19 +95,25 @@ const Admin = ({ children }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['0']}
+          selectedKeys={[location.pathname]}
+          defaultOpenKeys={[
+            location.pathname.substring(
+              0,
+              location.pathname.lastIndexOf('/') + 1
+            ),
+          ]}
           style={{ height: '100%', borderRight: 0 }}
         >
-          <Menu.Item key="0" icon={<AppstoreOutlined />}>
+          <Menu.Item key="/admin" icon={<AppstoreOutlined />}>
             Dashboard
             <Link to="/admin" />
           </Menu.Item>
-          <SubMenu key="sub1" icon={<UserOutlined />} title="Users">
-            <Menu.Item key="1">
+          <SubMenu key="/admin/users/" icon={<TeamOutlined />} title="Users">
+            <Menu.Item key="/admin/users/new">
               Add Users
               <Link to="/admin/users/new" />
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="/admin/users/manage">
               Manage Users
               <Link to="/admin/users/manage" />
             </Menu.Item>
@@ -181,42 +194,35 @@ const Admin = ({ children }) => {
                 onCancel={() => setIsModalVisible2(false)}
                 onOk={() => handleOk('btnSubmit2')}
               >
+                <p style={{ color: 'gray', fontSize: '12px' }}>
+                  <ExclamationCircleOutlined style={{ color: 'orange' }} />{' '}
+                  &nbsp; If you have created your account via Google then you
+                  don't need to change your password. Instead prefer
+                  password-less login via Google.
+                </p>
                 <Form form={form2} onFinish={passwordChanger} layout="vertical">
                   <Form.Item
-                    name="password"
-                    label="Password"
+                    label="Current Password"
+                    name="current"
                     rules={[
                       {
                         required: true,
                         min: 8,
-                        message: 'Please input your password!',
+                        message: 'Please enter your current password!',
                       },
                     ]}
-                    hasFeedback
                   >
                     <Input.Password />
                   </Form.Item>
-
                   <Form.Item
-                    name="confirm"
-                    label="Confirm Password"
-                    dependencies={['password']}
-                    hasFeedback
+                    label="New Password"
+                    name="nayapassword"
                     rules={[
                       {
                         required: true,
-                        message: 'Please confirm your password!',
+                        min: 8,
+                        message: 'Password must be more than 8 characters.',
                       },
-                      ({ getFieldValue }) => ({
-                        validator(_, value) {
-                          if (!value || getFieldValue('password') === value) {
-                            return Promise.resolve()
-                          }
-                          return Promise.reject(
-                            'The two passwords that you entered do not match!'
-                          )
-                        },
-                      }),
                     ]}
                   >
                     <Input.Password />

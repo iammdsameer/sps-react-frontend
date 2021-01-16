@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import axios from '../api/auth.api'
 import './Reset.css'
 
-const Reset = ({ match }) => {
+const ActivateNewUser = ({ match, history }) => {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const onFinish = async ({ password }) => {
@@ -21,10 +21,12 @@ const Reset = ({ match }) => {
         data: { resetPasswordLink: match.params.token, newPassword: password },
       })
       message.success({
-        content: response.data.message,
+        content:
+          'Booyah! Your account is ready to be used. Login with new password to continue',
         key: 'status',
         duration: 3,
       })
+      history.push('/login')
     } catch (error) {
       message.error({
         content: error.response.data.error,
@@ -112,4 +114,4 @@ const Reset = ({ match }) => {
   )
 }
 
-export default Reset
+export default ActivateNewUser

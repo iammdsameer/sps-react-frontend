@@ -9,8 +9,13 @@ import {
   Form,
   Select,
   Input,
+  Popconfirm,
 } from 'antd'
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import {
+  EditOutlined,
+  DeleteOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons'
 import axios from '../../api/auth.api'
 import './ManageUser.css'
 const { Option } = Select
@@ -20,9 +25,15 @@ const ManageUser = () => {
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [loading1, setLoading1] = useState(true)
+
   const getData = async () => {
     const result = await axios.post('users/admin/users-list')
-    setData(result.data)
+    setData(
+      result.data.filter(
+        (e) => e.key !== JSON.parse(localStorage.getItem('user'))['_id']
+      )
+    )
+    // console.log(data)
     setLoading1(false)
   }
   useEffect(() => {
@@ -127,12 +138,15 @@ const ManageUser = () => {
             shape="circle"
             icon={<EditOutlined />}
           />
-          <Button
-            onClick={() => deleteUser(val.key)}
-            shape="circle"
-            danger
-            icon={<DeleteOutlined />}
-          />
+          <Popconfirm
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+            title="Are you sure？"
+            okText="Yes"
+            cancelText="No"
+            onConfirm={() => deleteUser(val.key)}
+          >
+            <Button shape="circle" danger icon={<DeleteOutlined />} />
+          </Popconfirm>
         </Space>
       ),
     },
