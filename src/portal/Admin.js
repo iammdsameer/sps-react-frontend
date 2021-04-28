@@ -37,7 +37,6 @@ const Admin = () => {
       setTotalStudents(res3.data.count)
       setLoading(false)
     }
-    // console.log(allLevelStudents)
     getall()
   }, [])
 
