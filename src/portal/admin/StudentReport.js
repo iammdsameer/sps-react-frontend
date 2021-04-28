@@ -69,9 +69,11 @@ const columns = [
 
 const StudentReport = () => {
   const [levelStudents, setLevelStudents] = useState({})
+  const [loading, setLoading] = useState(true)
   const getLevelStudents = async () => {
     const { data } = await axios.post('users/admin/student-level-return', {})
     setLevelStudents(data)
+    setLoading(false)
   }
   useEffect(() => {
     getLevelStudents()
@@ -90,7 +92,11 @@ const StudentReport = () => {
       >
         Export to CSV
       </Button>
-      <Table columns={columns} dataSource={levelStudents['levelOneStudents']} />
+      <Table
+        columns={columns}
+        dataSource={levelStudents['levelOneStudents']}
+        loading={loading}
+      />
       <Divider style={{ color: 'red', fontSize: '1em' }} orientation="left">
         Level II Students (PAT)
       </Divider>
@@ -103,7 +109,11 @@ const StudentReport = () => {
       >
         Export to CSV
       </Button>
-      <Table columns={columns} dataSource={levelStudents['levelTwoStudents']} />
+      <Table
+        columns={columns}
+        dataSource={levelStudents['levelTwoStudents']}
+        loading={loading}
+      />
     </>
   )
 }

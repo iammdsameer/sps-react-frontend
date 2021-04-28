@@ -24,21 +24,19 @@ const ManageModules = () => {
   const [modules, setModules] = useState([])
   const [loading, setLoading] = useState(true)
   async function getModules(level) {
+    setLoading(true)
     const { data } = await axios.post('users/admin/return-module', {
       data: { level },
     })
     setModules(data.modules)
+    setLoading(false)
   }
   useEffect(() => {
-    setLoading(true)
     getModules(selectedLevel)
-    setLoading(false)
   }, [selectedLevel])
   function handleChange(value) {
     setSelectedLevel(value)
-    setLoading(true)
     getModules(value)
-    setLoading(false)
   }
   const showModal = () => {
     setIsModalVisible(true)
@@ -53,11 +51,11 @@ const ManageModules = () => {
   const onFinish = async ({ title, level, color }) => {
     try {
       console.log(title, level)
-      await axios.post('users/admin/create-module', { data: { title, level, color } })
-      setLoading(true)
+      await axios.post('users/admin/create-module', {
+        data: { title, level, color },
+      })
       getModules(level)
       setIsModalVisible(false)
-      setLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -78,7 +76,7 @@ const ManageModules = () => {
       <Button style={{ float: 'right' }} type="primary" onClick={showModal}>
         Add Modules
       </Button>
-      <div style={{width: '45%'}}>
+      <div style={{ width: '45%' }}>
         <Divider style={{ marginTop: '50px' }} orientation="left">
           Modules for{' '}
           {selectedLevel === 'all' ? 'All Levels' : `Level ${selectedLevel}`}
@@ -137,10 +135,7 @@ const ManageModules = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Hex (Optional)"
-            name="color"
-          >
+          <Form.Item label="Hex (Optional)" name="color">
             <Input />
           </Form.Item>
           <button type="submit" style={{ display: 'none' }} id="submit">
