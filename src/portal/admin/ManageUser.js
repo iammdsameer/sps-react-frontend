@@ -140,7 +140,7 @@ const ManageUser = () => {
           />
           <Popconfirm
             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-            title="Are you sure？"
+            title="Are you sure?"
             okText="Yes"
             cancelText="No"
             onConfirm={() => deleteUser(val.key)}

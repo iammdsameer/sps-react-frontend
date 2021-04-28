@@ -15,7 +15,7 @@ const ActivateNewUser = ({ match, history }) => {
       key: 'status',
     })
     try {
-      const response = await axios({
+      await axios({
         method: 'PUT',
         url: 'users/reset-password',
         data: { resetPasswordLink: match.params.token, newPassword: password },

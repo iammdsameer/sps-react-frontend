@@ -31,7 +31,7 @@ const Admin = () => {
         style={{ width: '50%', float: 'right' }}
       />
       <Space>
-        <Card style={{ width: '140px' }} hoverable>
+        <Card style={{ width: '160px' }} hoverable>
           <Statistic
             loading={loading}
             title="Total Users"
@@ -40,7 +40,7 @@ const Admin = () => {
             prefix={<ArrowUpOutlined />}
           />
         </Card>
-        <Card style={{ width: '140px' }} hoverable>
+        <Card style={{ width: '160px' }} hoverable>
           <Statistic
             loading={loading}
             title="Blocked Users"

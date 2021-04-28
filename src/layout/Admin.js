@@ -10,6 +10,9 @@ import {
   AppstoreOutlined,
   ExclamationCircleOutlined,
   SettingOutlined,
+  BookOutlined,
+  StockOutlined,
+  FileOutlined,
 } from '@ant-design/icons'
 
 const { SubMenu } = Menu
@@ -118,6 +121,28 @@ const Admin = ({ children }) => {
               <Link to="/admin/users/manage" />
             </Menu.Item>
           </SubMenu>
+          <Menu.Item key="/admin/modules" icon={<BookOutlined />}>
+            Modules
+            <Link to="/admin/modules" />
+          </Menu.Item>
+          <SubMenu
+            key="/admin/attendance/"
+            icon={<StockOutlined />}
+            title="Attendance"
+          >
+            <Menu.Item key="/admin/attendance/summary">
+              Summary
+              <Link to="/admin/attendance/summary" />
+            </Menu.Item>
+            <Menu.Item key="/admin/attendance/upload">
+              Upload Records
+              <Link to="/admin/attendance/upload" />
+            </Menu.Item>
+          </SubMenu>
+          <Menu.Item key="/admin/reports" icon={<FileOutlined />}>
+            Reports
+            <Link to="/admin/reports" />
+          </Menu.Item>
         </Menu>
       </Sider>
 
