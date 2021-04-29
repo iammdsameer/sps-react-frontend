@@ -91,13 +91,13 @@ const AttendanceUpload = ({ history }) => {
             }
           )
           notification.success({
-            message: 'Users Created Successfully',
+            message: 'Student Records Added',
             description: response.data.message,
           })
         } catch (err) {
           notification.warning({
             message: 'Corrupted Data Found',
-            description: `File contained false user information for which system did not create any account.`,
+            description: `File contained false student information for which system failed to add record to database.`,
           })
         }
         setTimeout(() => {

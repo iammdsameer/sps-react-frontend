@@ -1,7 +1,20 @@
 import React from 'react'
-import { Table, Input, Button, Space, Typography, Progress } from 'antd'
+import {
+  Table,
+  Input,
+  Button,
+  Space,
+  Typography,
+  Progress,
+  notification,
+  Popconfirm,
+} from 'antd'
 import Highlighter from 'react-highlight-words'
-import { SearchOutlined } from '@ant-design/icons'
+import {
+  SearchOutlined,
+  QuestionCircleOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons'
 import axios from '../../api/auth.api'
 
 class AttendanceSummary extends React.Component {
@@ -176,12 +189,36 @@ class AttendanceSummary extends React.Component {
       },
     ]
     return (
-      <Table
-        scroll={{ y: '60vh' }}
-        columns={columns}
-        dataSource={this.state.dataSource}
-        loading={this.state.loading}
-      />
+      <>
+        <Popconfirm
+          icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+          title="Are you sure?"
+          okText="Yes"
+          cancelText="No"
+          onConfirm={async () => {
+            const { data } = await axios.post('users/admin/remove-students', {})
+            notification.success({
+              message: 'Success',
+              description: data.message,
+            })
+            this.setState({ dataSource: [] })
+          }}
+        >
+          <Button
+            type="danger"
+            icon={<DeleteOutlined />}
+            style={{ marginBottom: '20px', float: 'right' }}
+          >
+            Clear Records
+          </Button>
+        </Popconfirm>
+        <Table
+          scroll={{ y: '60vh' }}
+          columns={columns}
+          dataSource={this.state.dataSource}
+          loading={this.state.loading}
+        />
+      </>
     )
   }
 }
