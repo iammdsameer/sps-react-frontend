@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Statistic, Card, Space, Calendar, Row, Col } from 'antd'
 import { Pie } from 'react-chartjs-2'
 import { ArrowUpOutlined, StopOutlined, TeamOutlined } from '@ant-design/icons'
@@ -81,27 +82,29 @@ const Admin = () => {
           <h1 className="title" style={{ float: 'left' }}>
             Students Report
           </h1>
-          <a
+          <Link
             className="btn btn-gh"
-            href="/admin/attendance/summary"
+            to="/admin/attendance/summary"
             style={{ float: 'right' }}
           >
             View Summary
-          </a>
-          <Pie
-            data={data}
-            options={{
-              title: {
-                display: true,
-                text: 'Average Rainfall per month',
-                fontSize: 20,
-              },
-              legend: {
-                display: true,
-                position: 'right',
-              },
-            }}
-          />
+          </Link>
+          <div style={{ width: '300px', margin: '0 auto', marginTop: '30px' }}>
+            <Pie
+              data={data}
+              options={{
+                title: {
+                  display: true,
+                  text: 'Average Rainfall per month',
+                  fontSize: 20,
+                },
+                legend: {
+                  display: true,
+                  position: 'right',
+                },
+              }}
+            />
+          </div>
         </div>
       </Col>
     </Row>
