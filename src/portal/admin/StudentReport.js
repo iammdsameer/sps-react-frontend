@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Divider, Typography, Button, Table } from 'antd'
-import './StudentReport.css'
 import { DownloadOutlined } from '@ant-design/icons'
 import { downloadTableCsv } from '../../helpers/parseCsv'
 import axios from '../../api/auth.api'
@@ -89,6 +88,7 @@ const StudentReport = () => {
         onClick={() => downloadTableCsv(levelStudents['levelOneStudents'])}
         shape="round"
         icon={<DownloadOutlined />}
+        style={{ float: 'right', marginBottom: '25px' }}
       >
         Export to CSV
       </Button>
@@ -105,6 +105,7 @@ const StudentReport = () => {
         onClick={() => downloadTableCsv(levelStudents['levelTwoStudents'])}
         shape="round"
         icon={<DownloadOutlined />}
+        style={{ float: 'right', marginBottom: '25px' }}
       >
         Export to CSV
       </Button>
