@@ -1,27 +1,9 @@
 import React from 'react'
-import { Button } from 'antd'
-import { revokeAll } from '../helpers'
+import { isAuthenticated } from '../helpers'
+import { Redirect } from 'react-router-dom'
 
 const Portal = ({ history }) => {
-  const revoke = () => {
-    revokeAll(() => {
-      history.push('/login')
-    })
-  }
-  return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <h1>Protected Route</h1>
-      <Button onClick={revoke}>Log Out</Button>
-    </div>
-  )
+  return <Redirect to={`/portal/${isAuthenticated().role}`} />
 }
 
 export default Portal

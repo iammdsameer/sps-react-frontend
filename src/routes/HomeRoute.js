@@ -5,7 +5,11 @@ import { isAuthenticated } from '../helpers'
 const HomeRoute = () => {
   return (
     <>
-      {isAuthenticated() ? <Redirect to="/portal" /> : <Redirect to="/login" />}
+      {isAuthenticated() ? (
+        <Redirect to={`/portal/${isAuthenticated().role}`} />
+      ) : (
+        <Redirect to="/login" />
+      )}
     </>
   )
 }

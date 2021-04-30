@@ -13,9 +13,12 @@ const Login = ({ history }) => {
   const [loading, setLoading] = useState(false)
   const takeAction = (result) => {
     authenticate(result, () => {
-      isAuthenticated().role === 'superuser'
-        ? history.push('/admin')
-        : history.push('/portal')
+      const role = isAuthenticated().role
+      if (role === 'superuser') history.push('/admin')
+      else history.push(`/portal/${role}`)
+      // isAuthenticated().role === 'superuser'
+      //   ? history.push('/admin')
+      //   : history.push('/portal')
     })
   }
   const onFinish = async ({ email, password, remember }) => {

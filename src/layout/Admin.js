@@ -8,11 +8,12 @@ import './Admin.css'
 import {
   TeamOutlined,
   AppstoreOutlined,
-  ExclamationCircleOutlined,
+  PushpinOutlined,
   SettingOutlined,
   BookOutlined,
   StockOutlined,
   FileOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons'
 
 const { SubMenu } = Menu
@@ -139,6 +140,10 @@ const Admin = ({ children }) => {
               <Link to="/admin/attendance/upload" />
             </Menu.Item>
           </SubMenu>
+          <Menu.Item key="/admin/blacklist" icon={<PushpinOutlined />}>
+            Blacklist
+            <Link to="/admin/blacklist" />
+          </Menu.Item>
           <Menu.Item key="/admin/reports" icon={<FileOutlined />}>
             Reports
             <Link to="/admin/reports" />

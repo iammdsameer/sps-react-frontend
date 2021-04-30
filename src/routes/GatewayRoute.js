@@ -19,12 +19,16 @@ const GatewayRoute = ({ component: Component, ...rest }) => (
             to={{ pathname: '/admin', state: { from: props.location } }}
           />
         )
+      } else if (isAuthenticated().role === 'teacher') {
+        return (
+          <Redirect
+            to={{
+              pathname: '/portal/teacher',
+              state: { from: props.location },
+            }}
+          />
+        )
       }
-      return (
-        <Redirect
-          to={{ pathname: '/portal', state: { from: props.location } }}
-        />
-      )
     }}
   />
 )

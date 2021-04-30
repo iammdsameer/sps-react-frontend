@@ -8,6 +8,7 @@ import Reset from './auth/Reset'
 import ActivateNewUser from './auth/ActivateNewUser'
 import HomeRoute from './routes/HomeRoute'
 import Portal from './portal/Portal'
+import Teacher from './portal/teacher/Home'
 import Admin from './portal/Admin'
 import AddUser from './portal/admin/AddUser'
 import ManageUser from './portal/admin/ManageUser'
@@ -18,12 +19,14 @@ import AdminRoute from './routes/AdminRoute'
 import AttendanceSummary from './portal/admin/AttendanceSummary'
 import AttendanceUpload from './portal/admin/AttendanceUpload'
 import StudentReport from './portal/admin/StudentReport'
+import Blacklist from './portal/admin/Blacklist'
 
 const Routes = () => (
   <Router>
     <Switch>
       <Route path="/" exact component={HomeRoute} />
-      <PrivateRoute path="/portal" component={Portal} />
+      <PrivateRoute path="/portal" component={Portal} exact />
+      <PrivateRoute path="/portal/teacher" component={Teacher} />
       <AdminRoute path="/admin" component={Admin} exact />
       <AdminRoute path="/admin/users" component={AddUser} exact />
       <AdminRoute path="/admin/users/new" component={AddUser} />
@@ -42,10 +45,8 @@ const Routes = () => (
         path="/admin/attendance/upload"
         component={AttendanceUpload}
       />
-      <AdminRoute
-        path="/admin/reports"
-        component={StudentReport}
-      />
+      <AdminRoute path="/admin/reports" component={StudentReport} />
+      <AdminRoute path="/admin/blacklist" component={Blacklist} />
       <Route path="/users/activate/:token" component={Verification} />
       <GatewayRoute path="/login" component={Login} />
       <GatewayRoute path="/register" component={Register} />
@@ -55,6 +56,11 @@ const Routes = () => (
         path="/users/new-activation/:token"
         component={ActivateNewUser}
       />
+      <Route>
+        <center>
+          <h1>404 Page Not Found</h1>
+        </center>
+      </Route>
     </Switch>
   </Router>
 )
