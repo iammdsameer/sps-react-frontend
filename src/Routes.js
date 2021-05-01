@@ -46,7 +46,7 @@ const Routes = () => (
         component={AttendanceUpload}
       />
       <AdminRoute path="/admin/reports" component={StudentReport} />
-      <AdminRoute path="/admin/blacklist" component={Blacklist} />
+      <AdminRoute path="/admin/feedback" component={Blacklist} />
       <Route path="/users/activate/:token" component={Verification} />
       <GatewayRoute path="/login" component={Login} />
       <GatewayRoute path="/register" component={Register} />

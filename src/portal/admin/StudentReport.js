@@ -3,6 +3,7 @@ import { Divider, Typography, Button, Table, Checkbox } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons'
 import { downloadTableCsv } from '../../helpers/parseCsv'
 import axios from '../../api/auth.api'
+import Counselled from '../../components/Comment'
 
 const StudentReport = () => {
   const [levelStudents, setLevelStudents] = useState({})
@@ -17,7 +18,7 @@ const StudentReport = () => {
   }, [])
   const columns = [
     {
-      title: 'Reviewed',
+      title: 'Counselled',
       dataIndex: 'reviewed',
       align: 'center',
       key: 'reviewed',
@@ -127,9 +128,7 @@ const StudentReport = () => {
         loading={loading}
         align="center"
         expandable={{
-          expandedRowRender: (record) => (
-            <p style={{ margin: 0 }}>{record.review || 'No Reviews Yet'}</p>
-          ),
+          expandedRowRender: (record) => <Counselled data={record} />,
         }}
       />
       <Divider style={{ color: 'red', fontSize: '1em' }} orientation="left">
@@ -150,9 +149,7 @@ const StudentReport = () => {
         loading={loading}
         align="center"
         expandable={{
-          expandedRowRender: (record) => (
-            <p style={{ margin: 0 }}>{record.review || 'No Reviews Yet'}</p>
-          ),
+          expandedRowRender: (record) => <Counselled data={record} />,
         }}
       />
     </>

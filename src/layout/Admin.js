@@ -140,13 +140,13 @@ const Admin = ({ children }) => {
               <Link to="/admin/attendance/upload" />
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="/admin/blacklist" icon={<PushpinOutlined />}>
-            Blacklist
-            <Link to="/admin/blacklist" />
-          </Menu.Item>
           <Menu.Item key="/admin/reports" icon={<FileOutlined />}>
             Reports
             <Link to="/admin/reports" />
+          </Menu.Item>
+          <Menu.Item key="/admin/feedback" icon={<PushpinOutlined />}>
+            Teachers' Feedback
+            <Link to="/admin/feedback" />
           </Menu.Item>
         </Menu>
       </Sider>
