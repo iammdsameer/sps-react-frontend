@@ -19,7 +19,8 @@ import AdminRoute from './routes/AdminRoute'
 import AttendanceSummary from './portal/admin/AttendanceSummary'
 import AttendanceUpload from './portal/admin/AttendanceUpload'
 import StudentReport from './portal/admin/StudentReport'
-import Blacklist from './portal/admin/Blacklist'
+// import Blacklist from './portal/admin/Blacklist'
+import Feedback from './portal/admin/Feedback'
 
 const Routes = () => (
   <Router>
@@ -46,7 +47,7 @@ const Routes = () => (
         component={AttendanceUpload}
       />
       <AdminRoute path="/admin/reports" component={StudentReport} />
-      <AdminRoute path="/admin/feedback" component={Blacklist} />
+      <AdminRoute path="/admin/feedback" component={Feedback} />
       <Route path="/users/activate/:token" component={Verification} />
       <GatewayRoute path="/login" component={Login} />
       <GatewayRoute path="/register" component={Register} />
