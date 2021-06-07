@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import axios from '../../api/auth.api'
-import { Form, Input, Row, Col, Select, Button, notification } from 'antd'
+import {
+  Alert,
+  Form,
+  Input,
+  Row,
+  Col,
+  Select,
+  Button,
+  notification,
+} from 'antd'
 import BulkUser from './BulkUser'
 
 const { Option } = Select
@@ -114,6 +123,23 @@ const AddUser = ({ history }) => {
       </Col>
       <Col span={8}>
         <h1 style={{ marginBottom: '30px' }}>Bulk Upload a CSV</h1>
+        <Alert
+          message={
+            <p>
+              You can download the template{' '}
+              <a
+                style={{ textDecoration: 'underline' }}
+                href="/bulk-user-create.csv"
+                download
+              >
+                from here.
+              </a>
+            </p>
+          }
+          type="warning"
+          showIcon
+        />
+        <br />
         <BulkUser history={history} />
       </Col>
     </Row>

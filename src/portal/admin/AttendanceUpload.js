@@ -117,8 +117,26 @@ const AttendanceUpload = ({ history }) => {
       <Alert
         style={{ marginTop: '20px' }}
         message="Informational Notes"
-        description="Make sure you upload the right file that contains attendance records for only this particular module."
-        type="info"
+        description={
+          <>
+            <span>
+              Make sure you upload the right file that contains attendance
+              records for only this particular module.
+            </span>
+            <br />
+            <span>
+              You can download the attendance template{' '}
+              <a
+                style={{ textDecoration: 'underline' }}
+                href="/attendance.csv"
+                download
+              >
+                from here.
+              </a>
+            </span>
+          </>
+        }
+        type="warning"
         showIcon
       />
       <Divider style={{ marginTop: '20px' }} orientation="left">
